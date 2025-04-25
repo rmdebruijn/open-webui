@@ -26,7 +26,11 @@ ARG BUILD_HASH
 
 WORKDIR /app
 
+ENV NODE_OPTIONS="--max-old-space-size=4096"
 COPY package.json package-lock.json ./
+RUN npm config delete http-proxy
+RUN npm config delete https-proxy
+RUN npm config delete proxy
 RUN npm ci
 
 COPY . .
